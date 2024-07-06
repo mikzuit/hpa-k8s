@@ -1,0 +1,22 @@
+# values.yaml
+namespaceOverride: tools-limited-namespace
+kubeTargetVersionOverride: 1.27.0
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  namespaceOverride: tools-limited-namespace
+  adminPassword: "admin"
+  ingress:
+    enbled: true
+    annotations: {
+      kubernetes.io/ingress.class: nginx
+    }
+    host: grafana.cluster.local
+    path: /
+  sidecar:
+    datasources:
+      enabled: true
+      label: grafana_datasource

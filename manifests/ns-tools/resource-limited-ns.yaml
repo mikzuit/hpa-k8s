@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tools-limited-namespace
+  labels:
+    environment: hpa-tools-example
+
+---
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: resource-quota
+  namespace: tools-limited-namespace
+  labels:
+    environment: hpa-tools-example
+spec:
+  hard:
+    requests.cpu: "90"
+    requests.memory: "45Gi"
+    limits.cpu: "110"
+    limits.memory: "110Gi"
+
+---
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: resource-limits
+  namespace: tools-limited-namespace
+  labels:
+    environment: hpa-tools-example
+spec:
+  limits:
+  - default:
+      cpu: "5"
+      memory: "8Gi"
+    defaultRequest:
+      cpu: "2"
+      memory: "4Gi"
+    max:
+      cpu: "7"
+      memory: "11Gi"
+    min:
+      cpu: "100m"
+      memory: "128Mi"
+    type: Container

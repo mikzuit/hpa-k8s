@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod-above-max
+  namespace: test-lr
+spec:
+  containers:
+  - name: test-container
+    image: nginx
+    resources:
+      limits:
+        cpu: "2"
+        memory: "2Gi"

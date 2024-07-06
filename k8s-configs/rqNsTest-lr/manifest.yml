@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-resources
+  namespace: test-lr # Replace with your actual namespace
+spec:
+  hard:
+    requests.cpu: "1"      # Total CPU requests cannot exceed 10 CPUs
+    requests.memory: "1.5Gi" # Total memory requests cannot exceed 20 GiB
+    limits.cpu: "2"        # Total CPU limits cannot exceed 15 CPUs
+    limits.memory: "2Gi"   # Total memory limits cannot exceed 30 GiB
