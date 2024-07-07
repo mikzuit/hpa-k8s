@@ -17,7 +17,7 @@ kc_debug_node:
 min_start:
 	@echo "Building Minikube with $(K_VS)"
 #minikube start --memory 8182 --cpus 4 --kubernetes-version=v$(K_VS)
-	minikube start --memory 13082 --cpus 7 --kubernetes-version=v$(K_VS) \
+	minikube start --memory 15842 --cpus 8 --kubernetes-version=v$(K_VS) \
 		--feature-gates=InPlacePodVerticalScaling=true \
 		--extra-config=controller-manager.horizontal-pod-autoscaler-upscale-delay=1m \
   	--extra-config=controller-manager.horizontal-pod-autoscaler-downscale-delay=2m \
