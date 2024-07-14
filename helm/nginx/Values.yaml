@@ -1,0 +1,15 @@
+# kubeVersion: "1.27.0"
+# resources: 
+#   limits:
+#     cpu: "100m"
+#     memory: "128Mi"
+#   requests:
+#     cpu: "50m"
+#     memory: "64Mi"
+# serverBlock: |-
+#   server {
+#     listen 0.0.0.0:8089;
+#     location / {
+#       return 200 "hello!";
+#     }
+#   }

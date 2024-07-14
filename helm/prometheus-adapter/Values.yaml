@@ -1,1 +1,4 @@
 namespaceOverride: "tools-limited-namespace"
+prometheus:
+  url: http://10.96.139.162
+  port: 9090

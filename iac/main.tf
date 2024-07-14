@@ -29,7 +29,7 @@ resource "helm_release" "metrics_server" {
   chart            = "metrics-server"
   version          = "3.12.1"
   create_namespace = true
-  namespace = "tools-limited-namespace"
+  namespace = "kube-system"
   values = [
     file("../helm/metrics-server/Values.yaml")
   ]
@@ -67,6 +67,34 @@ resource "helm_release" "vertical_pod_autoscaler" {
   depends_on = [ helm_release.metrics_server ]
 }
 
+# resource "helm_release" "nginx" {
+#   name             = "bitnami-nginx"
+#   repository       = "https://charts.bitnami.com/bitnami"
+#   chart            = "nginx"
+#   version          = "13.2.29"
+#   create_namespace = true
+#   namespace = "tools-limited-namespace"
+#   values = [
+#     file("../helm/nginx/Values.yaml")
+#   ]
+
+#   timeout = 300
+#   depends_on = [ helm_release.metrics_server ]
+# }
+
+/* resource "helm_release" "microservice" {
+  name             = "my-hello-springboot-microservice"
+  repository       = "https://siakhooi.github.io/helm-charts"
+  chart            = "hello-springboot-microservice"
+  version          = "0.21.0"
+  namespace = "tools-limited-namespace"
+  values = [
+    file("../helm/microservice/Values.yaml")
+  ]
+
+  timeout = 300
+  depends_on = [ helm_release.metrics_server ]
+} */
 /*
 data "kubernetes_service" "grafana" {
   depends_on = [ helm_release.kube_prometheus_stack ]

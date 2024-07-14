@@ -5,43 +5,43 @@ metadata:
   labels:
     environment: hpa-tools-example
 
----
+# ---
 
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: resource-quota
-  namespace: tools-limited-namespace
-  labels:
-    environment: hpa-tools-example
-spec:
-  hard:
-    requests.cpu: "90"
-    requests.memory: "45Gi"
-    limits.cpu: "110"
-    limits.memory: "110Gi"
+# apiVersion: v1
+# kind: ResourceQuota
+# metadata:
+#   name: resource-quota
+#   namespace: tools-limited-namespace
+#   labels:
+#     environment: hpa-tools-example
+# spec:
+#   hard:
+#     requests.cpu: "90"
+#     requests.memory: "45Gi"
+#     limits.cpu: "110"
+#     limits.memory: "110Gi"
 
----
+# ---
 
-apiVersion: v1
-kind: LimitRange
-metadata:
-  name: resource-limits
-  namespace: tools-limited-namespace
-  labels:
-    environment: hpa-tools-example
-spec:
-  limits:
-  - default:
-      cpu: "5"
-      memory: "4Gi"
-    defaultRequest:
-      cpu: "3"
-      memory: "2Gi"
-    max:
-      cpu: "7"
-      memory: "11Gi"
-    min:
-      cpu: "100m"
-      memory: "100Mi"
-    type: Container
+# apiVersion: v1
+# kind: LimitRange
+# metadata:
+#   name: resource-limits
+#   namespace: tools-limited-namespace
+#   labels:
+#     environment: hpa-tools-example
+# spec:
+#   limits:
+#   - default:
+#       cpu: "5"
+#       memory: "4Gi"
+#     defaultRequest:
+#       cpu: "3"
+#       memory: "2Gi"
+#     max:
+#       cpu: "7"
+#       memory: "11Gi"
+#     min:
+#       cpu: "100m"
+#       memory: "100Mi"
+#     type: Container
