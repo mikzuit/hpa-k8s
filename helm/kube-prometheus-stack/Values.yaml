@@ -1,5 +1,5 @@
 # values.yaml
-namespaceOverride: tools-limited-namespace
+namespaceOverride: team-monitor
 kubeTargetVersionOverride: 1.27.0
 
 prometheus:
@@ -7,7 +7,6 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
-  namespaceOverride: tools-limited-namespace
   adminPassword: "admin"
   ingress:
     enbled: true
