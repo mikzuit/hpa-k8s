@@ -1,1 +1,25 @@
 namespaceOverride: "team-monitor"
+prometheus:
+  url: "http://10.96.240.75"
+  port: 9090
+rules:
+  default: false
+  custom:
+    - seriesQuery: '{namespace!="",__name__!~"^container_.*"}'
+      resources:
+        template: "<<.Resource>>"
+      name:
+        matches: "^(.*)_total"
+        as: ""
+      metricsQuery: sum by (<<.GroupBy>>) (irate(<<.Series>>{<<.LabelMatchers>>}[1m]))
+# - seriesQuery: 'http_requests_total'
+#   resources:
+#     overrides:
+#       kubernetes_namespace:
+#         resource: namespace
+#       kubernetes_pod_name:
+#         resource: pod
+#   name:
+#     matches: "^(.*)"
+#     as: "${1}"
+#   metricsQuery: <<.Series>>{<<.LabelMatchers>>}

@@ -35,9 +35,21 @@ kc_node_metrics:
 	@echo "Getting NODE metrics json with jq..."
 	kubectl get --raw "/apis/metrics.k8s.io/v1beta1/node" | jq .
 
-# kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3000:80
-# kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes" | jq .
+kind_create_old:
+	@echo "Creating cluster..."
+	kind create cluster --name cluster-one --config kind-config-127-6.yaml
+	@echo "Cluster created"
+
+kind_create_new:
+	@echo "Creating cluster..."
+	kind create cluster --name cluster-one --config kind-config-latest-2.yaml
+	@echo "Cluster created"
 
 kc_res_lim_ns:
 	@echo "Creating resource limited namespace"
 	kubectl apply -f manifests/ns-tools/resource-limited-ns.yaml
+
+# kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3000:80
+# kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes" | jq .
+tofu_apply:
+	tofu -chdir="./iac" apply --var-file vars.tfvars

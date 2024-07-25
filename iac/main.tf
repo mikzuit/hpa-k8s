@@ -55,7 +55,7 @@ resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "kube-prometheus-stack"
-  version          = "51.1.0"
+  version          = "49.2.0"
   create_namespace = true
   namespace        = var.team-monitor-ns
   values = [
@@ -118,7 +118,7 @@ resource "helm_release" "vertical_pod_autoscaler" {
   ]
 }
 
-
+/* 
 resource "helm_release" "argocd" {
   name             = "argo-cd"
   repository       = "https://argoproj.github.io/argo-helm"
@@ -135,7 +135,7 @@ resource "helm_release" "argocd" {
     kubernetes_namespace_v1.mgmt_team,
     helm_release.kube_prometheus_stack
   ]
-}
+} */
 
 
 /* resource "kubernetes_service" "prometheus" {
