@@ -50,6 +50,20 @@ resource "kubernetes_namespace_v1" "mgmt_team" {
   }
 }
 
+resource "kubernetes_namespace_v1" "istio" {
+  metadata {
+    annotations = {
+      name = "terraform-managed"
+    }
+
+    labels = {
+      app = "istio"
+    }
+
+    name = "istio-system"
+  }
+}
+
 
 resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
@@ -118,6 +132,41 @@ resource "helm_release" "vertical_pod_autoscaler" {
   ]
 }
 
+resource "helm_release" "kubeshark" {
+  name             = "kubeshart"
+  repository       = "https://helm.kubeshark.co"
+  chart            = "kubeshark"
+  version          = "52.3.69"
+  create_namespace = true
+  namespace        = var.team-monitor-ns
+  values = [
+    file("../helm/kubeshark/Values.yaml")
+  ]
+
+  timeout = 300
+  depends_on = [
+    kubernetes_namespace_v1.monitor_team,
+    helm_release.kube_prometheus_stack
+  ]
+}
+
+resource "helm_release" "istio" {
+  name             = "istio"
+  repository       = "https://istio-release.storage.googleapis.com/charts"
+  chart            = "istio"
+  version          = "52.3.69"
+  create_namespace = true
+  namespace        = var.team-monitor-ns
+  values = [
+    file("../helm/kubeshark/Values.yaml")
+  ]
+
+  timeout = 300
+  depends_on = [
+    kubernetes_namespace_v1.monitor_team,
+    helm_release.kube_prometheus_stack
+  ]
+}
 /* 
 resource "helm_release" "argocd" {
   name             = "argo-cd"
